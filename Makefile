@@ -53,14 +53,12 @@ clean-test: ## remove test and coverage artifacts
 
 lint: ## check style.  isort and black disagree - so order matters.
 	find $(name) -name '*.py' -exec isort --multi-line 3 --trailing-comma -l $(linelength) --atomic {} +
-	find polls   -name '*.py' -exec isort --multi-line 3 --trailing-comma -l $(linelength) --atomic {} +
 	black --line-length $(linelength) $(name)
-	black --line-length $(linelength) polls
-	flake8 --max-line-length $(linelength) $(name) polls tests
-	mypy --ignore-missing-imports $(name) polls
+	flake8 --max-line-length $(linelength) $(name) tests
+	mypy --ignore-missing-imports $(name)
 
 test: ## run tests quickly with the default Python
-	python manage.py test polls
+	python manage.py test
 	time pytest --cov tests
 
 coverage: ## check code coverage quickly with the default Python
