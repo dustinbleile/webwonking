@@ -21,7 +21,7 @@ INSTALL_REQS = [
 DEV_REQS = ["jupyter", "flake8", "black", "isort", "mypy"]
 
 # Dependencies required only for running tests
-TEST_REQS = ["pytest", "pytest-cov" ]
+TEST_REQS = ["pytest", "pytest-cov"]
 
 # Dependencies required for deploying to an index server
 DEPLOYMENT_REQS = ["twine", "wheel", "m2r"]
@@ -30,8 +30,9 @@ long_description = ""
 long_description_content_type = "text/markdown"
 
 try:
-    import m2r
     import re
+
+    import m2r
 
     long_description = m2r.parse_from_file("README.md")
     long_description = re.sub(
@@ -57,8 +58,5 @@ setup(
     python_requires="==3.7.*",
     test_suite="tests",
     tests_require=TEST_REQS,
-    entry_points={
-        "console_scripts": [
-        ]
-    },
+    entry_points={"console_scripts": []},
 )
