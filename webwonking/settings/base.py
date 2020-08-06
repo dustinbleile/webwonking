@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     "webwonking.home",
     "webwonking.search",
-    "wagtail.contrib.wagtailsearchpromotions",
+    "wagtail.contrib.search_promotions",
     "wagtail.wagtailforms",
     "wagtail.wagtailredirects",
     "wagtail.wagtailembeds",
