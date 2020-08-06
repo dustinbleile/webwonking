@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailsearchpromotions_tags %}
+{% load static wagtailcore_tags %}
 
 {% block body_class %}template-searchresults{% endblock %}
 
@@ -9,21 +9,9 @@
     <h1>Search</h1>
 
     <form action="{% url 'search' %}" method="get">
-        <input type="text" name="query"{% if search_query %} value="{{ search_query }}{% endif %}">
-        <input type="submit" value="Search">
+        <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
+        <input type="submit" value="Search" class="button">
     </form>
-
-    {% get_search_promotions search_query as search_picks %}
-    {% if search_picks %}
-         <ul>
-            {% for pick in search_picks %}
-                <li>
-                    <h2><a href="{{ pick.page.url }}">{{ pick.page }}</a></h2>
-                    <p>{{ pick.description }}</p>
-                </li>
-             {% endfor %}
-         </ul>
-    {% endif %}
 
     {% if search_results %}
         <ul>
@@ -31,7 +19,7 @@
                 <li>
                     <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
                     {% if result.search_description %}
-                        {{ result.search_description|safe }}
+                        {{ result.search_description }}
                     {% endif %}
                 </li>
             {% endfor %}

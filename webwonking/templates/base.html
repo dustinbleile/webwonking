@@ -1,23 +1,27 @@
-{% load compress static wagtailuserbar %}
+{% load static wagtailuserbar %}
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html class="no-js" lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+                {% with self.get_site.site_name as site_name %}
+                    {% if site_name %}- {{ site_name }}{% endif %}
+                {% endwith %}
+            {% endblock %}
+        </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {% compress css %}
-            <link rel="stylesheet" type="text/x-scss" href="{% static 'css/main.scss' %}">
-        {% endcompress %}
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/webwonking.css' %}">
 
         {% block extra_css %}
-
+            {# Override this in templates to add extra stylesheets #}
         {% endblock %}
     </head>
 
@@ -26,13 +30,11 @@
 
         {% block content %}{% endblock %}
 
-        {% compress js %}
-            <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-        {% endcompress %}
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/webwonking.js' %}"></script>
 
         {% block extra_js %}
-
+            {# Override this in templates to add extra javascript #}
         {% endblock %}
     </body>
 </html>
-
