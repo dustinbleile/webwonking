@@ -20,6 +20,10 @@ INSTALL_REQS = [
 # Dependencies required for development
 DEV_REQS = ["jupyter", "flake8", "black", "isort", "mypy"]
 
+# tricks for task management
+# Makefile
+TASK_REQS = ["doit", "fabric"]
+
 # Dependencies required only for running tests
 TEST_REQS = ["pytest", "pytest-cov" ]
 
