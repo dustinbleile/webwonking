@@ -62,7 +62,7 @@ test: ## run tests quickly with the default Python
 	time pytest --cov tests
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source gsc_genomic_report -m pytest
+	coverage run --source $(name) -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
@@ -80,10 +80,10 @@ install: clean ## install the package to the active Python's site-packages
 	python setup.py install
 
 pip_install: clean ## pip install
-	python -m pip install -U pip setuptools
+	python -m pip install -U pip setuptools doit
 	python -m pip install -e . --use-feature=2020-resolver
 
 pip_install_dev: clean ## install with dev tools and updates
-	python -m pip install -U pip setuptools wheel twine
+	python -m pip install -U pip setuptools do it wheel twine
 	python -m pip install -e .[dev] -U --use-feature=2020-resolver
 
