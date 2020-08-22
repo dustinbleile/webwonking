@@ -30,10 +30,16 @@ Then the initial setups:
 
 ```bash
  pip install -r requirements.txt
+ ./manage.py makemigrations
  ./manage.py migrate
  ./manage.py createsuperuser
  ./manage.py runserver
 ```
+
+wagtail admin is now
+<http://127.0.0.1:8000/admin/>
+but the original django admin is still around...
+<http://127.0.0.1:8000/django-admin/>
 
 ## Stream of Creation
 
