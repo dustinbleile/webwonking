@@ -1,7 +1,6 @@
-import streamlit as st
 import numpy as np
 import pandas as pd
-
+import streamlit as st
 
 # Apps run top to bottom and re-execute on any changes
 # Run flow with:
