@@ -5,6 +5,10 @@ pip [dev] devpi install example
     pip install -U pip setuptools
     pip install -U -e .[dev]
 """
+import codecs
+import os
+import sys
+
 from setuptools import find_packages, setup
 
 # Dependencies required to use your package
@@ -33,18 +37,25 @@ DEPLOYMENT_REQS = ["twine", "wheel", "m2r"]
 long_description = ""
 long_description_content_type = "text/markdown"
 
-try:
-    import m2r
-    import re
 
-    long_description = m2r.parse_from_file("README.md")
-    long_description = re.sub(
-        r".. code-block::.*", ".. code::", long_description
-    )  # pyshop has issues with fenced code blocks
-    long_description_content_type = "text/rst"
-except ImportError:
-    with open("README.md", "r") as fh:
-        long_description = fh.read()
+def read(rel_path):
+    here = os.path.abspath(os.path.dirname(__file__))
+    # intentionally *not* adding an encoding option to open, See:
+    #   https://github.com/pypa/virtualenv/issues/201#issuecomment-3145690
+    with codecs.open(os.path.join(here, rel_path), 'r') as fp:
+        return fp.read()
+
+
+def get_version(rel_path):
+    for line in read(rel_path).splitlines():
+        if line.startswith('__version__'):
+            # __version__ = "0.9"
+            delim = '"' if '"' in line else "'"
+            return line.split(delim)[1]
+    raise RuntimeError("Unable to find version string.")
+
+
+long_description = read('README.md')
 
 setup(
     name="webwonking",
