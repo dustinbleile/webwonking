@@ -66,12 +66,13 @@ def setup_files(output_folder, dryrun=False):
     Copy common python setup files
     """
     BASE, DEST = range(2)
-    SETUP_FILES = [  # (basename, dest_name)
-        ("dodo.py", "dodo.py"),
-        ("README_template.md", "README.md"),
-        ("setup_py_template.py", "setup.py"),
-        ("gitignore.base", ".gitignore"),
+    SETUP_BASENAMES = [
+        "dodo.py",
+        "README.md",
+        "setup.py",
+        ".gitignore",
     ]
+    SETUP_FILES = [(dest.replace("_dot_", "."), dest) for dest in SETUP_BASENAMES]
     folder = dirname(__file__)
     print(__file__)
     files_base = [abspath(join(folder, fn[BASE])) for fn in SETUP_FILES]

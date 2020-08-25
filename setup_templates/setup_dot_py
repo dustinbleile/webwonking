@@ -11,7 +11,7 @@ import sys
 
 from setuptools import find_packages, setup
 
-NAME = "SETUP_TEMPLATE"
+NAME = "webwonking"
 PYTHON_VER = "==3.8.*"
 
 # Dependencies required to use your package

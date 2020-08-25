@@ -22,13 +22,23 @@ endef
 export PRINT_HELP_PYSCRIPT
 
 
-linelength=100
-name="webwonking"
-
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+
+
+# Parameters
+linelength=100
+name="webwonking"
+
+lint: ## isort black flake8 mypy
+	# isort and black disagree - so order matters.
+	find $(name) -name '*.py' -exec isort -l $(linelength) --multi-line 3 --trailing-comma --atomic --skip project_dir/wsgi.py --skip-glob "*/migrations/*" --skip-glob "*/node_modules/*" {} +
+	black --line-length $(linelength) $(name)
+	flake8 --max-line-length $(linelength) $(name) tests
+	mypy --ignore-missing-imports $(name)
+
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
@@ -51,11 +61,6 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint: ## check style.  isort and black disagree - so order matters.
-	find $(name) -name '*.py' -exec isort --multi-line 3 --trailing-comma -l $(linelength) --atomic {} +
-	black --line-length $(linelength) $(name)
-	flake8 --max-line-length $(linelength) $(name) tests
-	mypy --ignore-missing-imports $(name)
 
 test: ## run tests quickly with the default Python
 	python manage.py test
@@ -84,6 +89,6 @@ pip_install: clean ## pip install
 	python -m pip install -e . --use-feature=2020-resolver
 
 pip_install_dev: clean ## install with dev tools and updates
-	python -m pip install -U pip setuptools do it wheel twine
+	python -m pip install -U pip setuptools doit wheel twine
 	python -m pip install -e .[dev] -U --use-feature=2020-resolver
 
