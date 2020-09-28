@@ -29,15 +29,15 @@ help:
 
 
 # Parameters
-linelength=100
+linelength=120
 name="webwonking"
 
 lint: ## isort black flake8 mypy
 	# isort and black disagree - so order matters.
-	find $(name) -name '*.py' -exec isort -l $(linelength) --multi-line 3 --trailing-comma --atomic --skip project_dir/wsgi.py --skip-glob "*/migrations/*" --skip-glob "*/node_modules/*" {} +
-	black --line-length $(linelength) $(name)
-	flake8 --max-line-length $(linelength) $(name) tests
-	mypy --ignore-missing-imports $(name)
+	isort . -l $(linelength) --multi-line 3 --trailing-comma --atomic --skip venv --skip project_dir/wsgi.py --skip-glob "*/migrations/*" --skip-glob "*/node_modules/*"
+	black --line-length $(linelength) --exclude venv .
+	flake8 --max-line-length $(linelength) --extend-exclude venv .
+	mypy --ignore-missing-imports $(name) blog
 
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
